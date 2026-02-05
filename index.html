@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Синхронізація Shopify та 1С/Торгсофт — QuantumWebs</title>
+  <meta name="description" content="Інтеграція Shopify з 1С та Торгсофт: автоматична синхронізація товарів, цін, залишків і замовлень у реальному часі без ручної роботи." />
+  <meta name="theme-color" content="#f4f8ff" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Синхронізація Shopify та 1С/Торгсофт — QuantumWebs" />
+  <meta property="og:description" content="Автоматизуйте Shopify: синхронізація з 1С/Торгсофт, актуальні ціни та залишки, двосторонній обмін замовленнями і мінімум помилок." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до контенту</a>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="На початок">
+        <span class="brand__mark" aria-hidden="true">QW</span>
+        <span class="brand__text">
+          <strong>QuantumWebs</strong>
+          <small>Офіційний партнер Shopify</small>
+        </span>
+      </a>
+
+      <button class="burger" id="burger" aria-label="Відкрити меню" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="menu">
+        <a href="#services">Послуги</a>
+        <a href="#cases">Кейси</a>
+        <a href="#process">Процес</a>
+        <a href="#reviews">Відгуки</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn--sm" href="#contact">Обговорити синхронізацію</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <h1>Передача та оновлення товарів, варіацій і колекцій у Shopify</h1>
+          <p class="lead">
+            Без інтеграції між Shopify і системами обліку (1С, Торгсофт, BAS, ULTRA) з’являються дублювання,
+            помилки в цінах і статусах та затримки в обробці замовлень. Ми налаштовуємо повну синхронізацію:
+            товари, описи, фото, ціни та залишки оновлюються автоматично при кожній зміні у вашій системі.
+            Додаємо і двосторонній обмін: нові замовлення з Shopify передаються в облік, а статуси повертаються
+            назад у магазин. Результат — актуальні дані, менше ручної роботи і швидше обслуговування клієнтів.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn" href="#contact">Запросити консультацію</a>
+            <a class="btn btn--ghost" href="#blitz">Бліц-оцінка інтеграції</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__num">7–14</div>
+              <div class="stat__label">днів на запуск базової синхронізації*</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">1С / BAS / CRM / Marketplaces</div>
+              <div class="stat__label">XML / JSON / API / Webhooks / CSV</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num">Shopify</div>
+              <div class="stat__label">Products / Variants / Collections</div>
+            </div>
+          </div>
+
+          <p class="note">*Термін залежить від якості даних і кількості правил обміну.</p>
+        </div>
+
+        <div class="hero__visual">
+          <figure class="hero__media">
+            <img
+              class="hero__gif"
+              src="https://cdn.shopify.com/s/files/1/0865/0847/0547/files/shopify-products-sync-animation-3-clean.gif?v=1770040994"
+              alt="Анімація синхронізації товарів Shopify"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDE ANCHORS like 01..05 -->
+    <aside class="side" aria-label="Навігація по розділах">
+      <a href="#s01" class="side__item" data-side="s01"><span>01</span><em>Що синхронізуємо</em></a>
+      <a href="#s02" class="side__item" data-side="s02"><span>02</span><em>Джерела даних</em></a>
+      <a href="#s03" class="side__item" data-side="s03"><span>03</span><em>Логіка обміну</em></a>
+      <a href="#s04" class="side__item" data-side="s04"><span>04</span><em>Кейси</em></a>
+      <a href="#s05" class="side__item" data-side="s05"><span>05</span><em>Оцінка</em></a>
+    </aside>
+
+    <!-- 01 -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section__head" id="s01" data-section>
+          <h2>01. Що саме ми синхронізуємо в Shopify</h2>
+          <p>
+            Налаштовуємо передачу даних з вашої облікової системи в Shopify так, щоб каталог був актуальним:
+            товари, варіації, колекції, ціни та залишки оновлюються за правилами бізнесу.
+          </p>
+        </div>
+
+        <div class="grid cards">
+          <article class="card">
+            <h3>Товари та варіації</h3>
+            <p>Створення та оновлення продуктів, SKU, опцій (розмір/колір), зображень, описів, тегів і SEO-полів.</p>
+          </article>
+          <article class="card">
+            <h3>Колекції та структура каталогу</h3>
+            <p>Прив’язка до колекцій, правила автоматичних колекцій, контроль дублювань і чиста структура вітрини.</p>
+          </article>
+          <article class="card">
+            <h3>Ціни й залишки</h3>
+            <p>Передача прайсів, акційних цін, залишків по складах та статусів доступності в потрібній періодичності.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__head" id="s02" data-section>
+          <h2>02. Які інтеграції найчастіше шукають для Shopify</h2>
+          <p>
+            Працюємо з 1С, BAS, Торгсофт, ULTRA, KeyCRM, МойСклад, ERP/CRM/PIM, маркетплейс-агрегаторами
+            та сайтами інших компаній. Найчастіші запити: вигрузка товарів у Shopify, синхронізація залишків,
+            оновлення цін, імпорт замовлень і синхронізація каталогу між Shopify та маркетплейсами.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h3>Що отримує бізнес</h3>
+            <ul class="list">
+              <li>Автоматичне оновлення товарів, цін, фото та залишків між Shopify і системою обліку.</li>
+              <li>Двосторонній обмін замовленнями: створення в 1С/Торгсофт і повернення статусів у Shopify.</li>
+              <li>Контроль залишків у реальному часі та захист від надпродажів.</li>
+              <li>Економія часу менеджерів і мінімум помилок через відмову від ручного копіювання.</li>
+              <li>Єдина база клієнтів і замовлень для швидкої аналітики та рішень.</li>
+            </ul>
+
+            <div class="tags">
+              <span class="tag">1С / BAS</span>
+              <span class="tag">Торгсофт / ULTRA</span>
+              <span class="tag">KeyCRM / МойСклад</span>
+              <span class="tag">Amazon / eBay / Etsy</span>
+              <span class="tag">Rozetka / Prom</span>
+            </div>
+          </div>
+
+          <div class="panel panel--glass">
+            <h3>Як будуємо інтеграцію</h3>
+            <ol class="steps">
+              <li><strong>Аудит даних:</strong> формати, обов’язкові поля, ідентифікатори, зв’язки.</li>
+              <li><strong>Мапінг полів:</strong> як поля 1С/BAS/Торгсофт/ULTRA лягають у Products, Variants, Collections.</li>
+              <li><strong>Розробка обміну:</strong> API, черги, webhooks, контроль лімітів Shopify.</li>
+              <li><strong>Тестові прогони:</strong> перевірка edge-case сценаріїв і журналу помилок.</li>
+              <li><strong>Запуск і підтримка:</strong> моніторинг, доопрацювання правил, масштабування.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head" id="s03" data-section>
+          <h2>03. Кастомна логіка синхронізації під ваш бізнес</h2>
+          <p>
+            Якщо стандартний обмін не підходить, додаємо правила саме під ваш процес:
+            пріоритет складів, фільтрація товарів, обмеження за брендом, мовами, каналами продажу.
+          </p>
+        </div>
+
+        <div class="grid cards">
+          <article class="card">
+            <h3>Правила оновлення</h3>
+            <p>Що оновлюємо завжди, що тільки при змінах, що блокуємо вручну в Shopify.</p>
+          </article>
+          <article class="card">
+            <h3>Синхронізація складів</h3>
+            <p>Залишки по локаціях, резерви, правила "0 при відсутності", контроль розсинхрону.</p>
+          </article>
+          <article class="card">
+            <h3>Логи та контроль</h3>
+            <p>Журнал обміну, статуси, помилки, повторні відправки, ручний перезапуск пакетів.</p>
+          </article>
+        </div>
+
+        <div class="cta-line">
+          <div>
+            <h3 class="cta-line__title">Потрібна синхронізація 1С, BAS, Торгсофт або ULTRA з Shopify?</h3>
+            <p class="cta-line__text">Покажемо робочу схему інтеграції на основі нашого досвіду попередніх проєктів.</p>
+          </div>
+          <a class="btn btn--ghost" href="#contact">Написати нам</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04: CASES -->
+    <section class="section section--alt" id="cases">
+      <div class="container">
+        <div class="section__head" id="s04" data-section>
+          <h2>04. Приклади наших кейсів синхронізації</h2>
+          <p>Нижче типові сценарії, які ми вже реалізовували в проєктах з інтеграції 1С, BAS, Торгсофт, ULTRA, CRM/ERP і Shopify.</p>
+        </div>
+
+        <div class="slider cases-slider" aria-roledescription="carousel">
+          <button class="slider__btn" id="prevCase" aria-label="Попередній кейс">‹</button>
+          <div class="slider__viewport cases__viewport" id="casesViewport">
+            <div class="cases__track" id="casesTrack">
+              <article class="case case--slide">
+                <div class="case__badge">1С → Shopify</div>
+                <h3>Каталог 30 000+ SKU</h3>
+                <p>Побудували пакетну передачу товарів і варіацій з контролем дублів та стабільним оновленням цін.</p>
+                <ul class="mini">
+                  <li>⌁ Products API</li><li>⌁ Bulk sync</li><li>⌁ Error logs</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">1С + Rozetka → Shopify</div>
+                <h3>Ціни та залишки з двох каналів</h3>
+                <p>Об’єднали дані з 1С і Rozetka: пріоритети оновлень, синхронізація залишків і коректна передача статусів.</p>
+                <ul class="mini">
+                  <li>⌁ Multi-source sync</li><li>⌁ Stock priority</li><li>⌁ Status mapping</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">BAS → Shopify</div>
+                <h3>Автооновлення номенклатури</h3>
+                <p>Налаштували інкрементальну передачу товарів, цін і залишків із BAS у Shopify за розкладом і по webhooks.</p>
+                <ul class="mini">
+                  <li>⌁ Delta sync</li><li>⌁ Scheduler</li><li>⌁ Webhooks</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">Торгсофт → Shopify</div>
+                <h3>Стабільний обмін для retail</h3>
+                <p>Реалізували автоматичну синхронізацію Shopify та Торгсофт: створення нових товарів, оновлення існуючих, фото, кількість, метаполя та керування полями оновлення.</p>
+                <ul class="mini">
+                  <li>⌁ SKU validation</li><li>⌁ Inventory sync</li><li>⌁ Error logs</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">ULTRA → Shopify</div>
+                <h3>Варіації, фото і колекції</h3>
+                <p>Налаштували мапінг атрибутів у варіації та автоматичне розкладання по колекціях з медіаконтентом.</p>
+                <ul class="mini">
+                  <li>⌁ Variant mapping</li><li>⌁ Collections</li><li>⌁ Media sync</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">Powerbody → Shopify</div>
+                <h3>Імпорт продуктів з Powerbody</h3>
+                <p>Підтягнули товари, варіації, фото й характеристики продуктів Powerbody в Shopify зі стабільним оновленням залишків та цін.</p>
+                <ul class="mini">
+                  <li>⌁ Product feed</li><li>⌁ Variants sync</li><li>⌁ Stock + price</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">Сайти постачальників → Shopify</div>
+                <h3>Збір даних товарів з вебсайтів</h3>
+                <p>Налаштували збір і нормалізацію карток товарів з зовнішніх сайтів та автоматичну публікацію в Shopify.</p>
+                <ul class="mini">
+                  <li>⌁ Data parsing</li><li>⌁ Field mapping</li><li>⌁ Scheduled sync</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+          <button class="slider__btn" id="nextCase" aria-label="Наступний кейс">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05: BLITZ -->
+    <section class="section" id="blitz">
+      <div class="container">
+        <div class="section__head" id="s05" data-section>
+          <h2>05. Бліц-оцінка інтеграції: бюджет і терміни</h2>
+          <p>Заповни 5 пунктів і отримай попередню оцінку синхронізації товарів, варіацій та колекцій.</p>
+        </div>
+
+        <div class="blitz">
+          <form id="blitzForm" class="blitz__form">
+            <div class="field">
+              <label for="type">Тип інтеграції</label>
+              <select id="type" name="type" required>
+                <option value="custom" selected>Одностороння (система → Shopify)</option>
+                <option value="public">Двостороння (Shopify ↔ система)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="scope">Складність</label>
+              <select id="scope" name="scope" required>
+                <option value="s">Невелика (до 1 000 SKU)</option>
+                <option value="m" selected>Середня (1 000–10 000 SKU)</option>
+                <option value="l">Висока (10 000+ SKU і складні правила)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="integrations">Джерела даних</label>
+              <select id="integrations" name="integrations" required>
+                <option value="0">1 система (наприклад, 1С, BAS, Торгсофт)</option>
+                <option value="1" selected>2 системи (наприклад, ERP + CRM/склад)</option>
+                <option value="3">3+ системи або маркетплейси (Amazon/eBay/Etsy)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="ui">Керування синхронізацією</label>
+              <select id="ui" name="ui" required>
+                <option value="basic">Базове (мінімальні налаштування)</option>
+                <option value="pro" selected>Розширене (логи, фільтри, ручний перезапуск)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="deadline">Коли треба</label>
+              <select id="deadline" name="deadline" required>
+                <option value="flex" selected>Гнучко</option>
+                <option value="soon">Якнайшвидше</option>
+              </select>
+            </div>
+
+            <button class="btn" type="submit">Порахувати інтеграцію</button>
+          </form>
+
+          <div class="blitz__result" aria-live="polite">
+            <div class="result__box">
+              <h3>Результат</h3>
+              <p class="result__line"><span>Оцінка термінів:</span> <strong id="resTime">—</strong></p>
+              <p class="result__line"><span>Оцінка бюджету:</span> <strong id="resBudget">—</strong></p>
+              <p class="muted">
+                Це приблизний діапазон. Для точного кошторису потрібні правила обміну, структура полів і приклади даних.
+              </p>
+              <a class="btn btn--ghost" href="#contact">Отримати точну оцінку</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section section--alt" id="process">
+      <div class="container">
+        <div class="section__head" data-section>
+          <h2>Як ми запускаємо синхронізацію</h2>
+          <p>Працюємо поетапно: аудит, мапінг, розробка, тестові прогони, запуск і підтримка.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timecard">
+            <div class="timecard__n">1</div>
+            <h3>Аудит</h3>
+            <p>Вивчаємо структуру даних джерела, бізнес-правила і ризики.</p>
+          </div>
+          <div class="timecard">
+            <div class="timecard__n">2</div>
+            <h3>Мапінг</h3>
+            <p>Описуємо відповідність полів: система → Shopify.</p>
+          </div>
+          <div class="timecard">
+            <div class="timecard__n">3</div>
+            <h3>Розробка</h3>
+            <p>API, черги, webhooks, обробка помилок, логи.</p>
+          </div>
+          <div class="timecard">
+            <div class="timecard__n">4</div>
+            <h3>Запуск</h3>
+            <p>Тестові обміни, валідація, безпечний перехід на прод.</p>
+          </div>
+          <div class="timecard">
+            <div class="timecard__n">5</div>
+            <h3>Підтримка</h3>
+            <p>Моніторинг, оптимізація швидкості і нові правила синхронізації.</p>
+          </div>
+        </div>
+
+        <div class="tech">
+          <span class="tag">Shopify Admin API</span>
+          <span class="tag">1С / BAS / Торгсофт / ULTRA API</span>
+          <span class="tag">Amazon SP-API / Marketplace APIs</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Queues</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Observability</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section__head" data-section>
+          <h2>Відгуки клієнтів по синхронізації</h2>
+          <p>Короткі цитати з проєктів, де запускали передачу товарів, варіацій і залишків у Shopify.</p>
+        </div>
+
+        <div class="slider" aria-roledescription="carousel">
+          <button class="slider__btn" id="prevReview" aria-label="Попередній відгук">‹</button>
+          <div class="slider__viewport reviews__viewport" id="reviewViewport">
+            <div class="reviews__track" id="reviewTrack">
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Після запуску синхронізації з 1С/BAS каталог у Shopify став актуальним, а ручна робота майже зникла.”</p>
+                <div class="review__who">
+                  <strong>Олена</strong> <span>• eCommerce, Україна</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Зробили коректну передачу варіацій і колекцій. Навіть складні товари тепер оновлюються без помилок.”</p>
+                <div class="review__who">
+                  <strong>Андрій</strong> <span>• Retail, Київ</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Команда швидко розібралася в нашому ERP, налаштувала логи і retries — синхронізація працює стабільно.”</p>
+                <div class="review__who">
+                  <strong>John</strong> <span>• SaaS, ЄС</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Інтеграція з Powerbody дала швидкий запуск: товари і залишки підтягнулися без ручного імпорту.”</p>
+                <div class="review__who">
+                  <strong>Michael</strong> <span>• Supplements, Польща</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Зібрали дані товарів з сайтів постачальників, вирівняли структуру і автоматично публікуємо в Shopify.”</p>
+                <div class="review__who">
+                  <strong>Наталія</strong> <span>• D2C, Україна</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Після налаштування логів та повторних відправок зникли провали в замовленнях і оновленнях цін.”</p>
+                <div class="review__who">
+                  <strong>David</strong> <span>• Marketplace, ЄС</span>
+                </div>
+              </article>
+            </div>
+          </div>
+          <button class="slider__btn" id="nextReview" aria-label="Наступний відгук">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--alt" id="faq">
+      <div class="container">
+        <div class="section__head" data-section>
+          <h2>FAQ</h2>
+          <p>Відповіді на популярні питання перед запуском інтеграції.</p>
+        </div>
+
+        <div class="accordion" id="accordion">
+          <details class="acc" open>
+            <summary>Скільки коштує синхронізація 1С, BAS, Торгсофт, ULTRA або іншої системи з Shopify?</summary>
+            <div class="acc__body">
+              Залежить від обсягу каталогу, кількості джерел, частоти обміну та складності правил.
+              Після короткого брифу даємо діапазон, план і ризики.
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary>Чому варто інтегрувати Shopify з 1С чи ТоргСофт?</summary>
+            <div class="acc__body">
+              Без інтеграції менеджери переносять замовлення вручну, через що з’являються втрати заявок, помилки
+              в цінах і статусах та повільна обробка. Інтеграція автоматично синхронізує товари, залишки,
+              замовлення і статуси між системами, зменшує помилки та прискорює виконання замовлень.
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary>Чи робите синхронізацію Shopify з Amazon, eBay, Etsy, Rozetka, Prom?</summary>
+            <div class="acc__body">
+              Так, якщо є доступний API, фід або стабільний конектор. Найчастіше налаштовуємо каталог, ціни,
+              залишки, імпорт замовлень та статуси між каналами.
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary>Чи є підтримка після запуску?</summary>
+            <div class="acc__body">
+              Так. Супроводжуємо інтеграцію, відстежуємо помилки обміну, доопрацьовуємо правила
+              й адаптуємо рішення під зміни Shopify та вашої облікової системи.
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary>Що потрібно від вас на старті?</summary>
+            <div class="acc__body">
+              Приклад товарів і варіацій, доступи до Shopify та системи-джерела, опис правил обміну
+              (що і коли оновлювати), бажаний термін запуску.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section__head" data-section>
+          <h2>Обговоримо вашу синхронізацію</h2>
+          <p>Залиште контакт — підготуємо технічний підхід для передачі товарів, варіацій і колекцій у Shopify.</p>
+        </div>
+
+        <div class="contact">
+          <form class="contact__form" id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Ім’я*</label>
+              <input id="name" name="name" type="text" placeholder="Напр.: Олексій" required minlength="2" />
+              <small class="error" data-err-for="name"></small>
+            </div>
+
+            <div class="field">
+              <label for="company">Компанія</label>
+              <input id="company" name="company" type="text" placeholder="Назва компанії (необов’язково)" />
+              <small class="error" data-err-for="company"></small>
+            </div>
+
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" placeholder="+380…" />
+              <small class="error" data-err-for="phone"></small>
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail*</label>
+              <input id="email" name="email" type="email" placeholder="name@email.com" required />
+              <small class="error" data-err-for="email"></small>
+            </div>
+
+            <div class="field field--full">
+              <label for="message">Коротко про задачу</label>
+              <textarea id="message" name="message" rows="4" placeholder="Система-джерело: 1С / BAS / Торгсофт / ULTRA&#10;Що синхронізуємо: товари, ціни, залишки, замовлення&#10;Бажаний термін запуску"></textarea>
+              <small class="error" data-err-for="message"></small>
+            </div>
+
+            <button class="btn btn--sm" type="submit">Надіслати</button>
+          </form>
+
+          <div class="contact__info">
+            <div class="infoCard">
+              <h3>Контакти по інтеграції</h3>
+              <p><strong>Тел:</strong> <a href="tel:+380631389419">+380 63 138 94 19</a></p>
+              <p><strong>Email:</strong> <a href="mailto:quantumwebs.official@gmail.com">quantumwebs.official@gmail.com</a></p>
+              <p><strong>Локація:</strong> Україна • віддалено</p>
+              <div class="infoCard__links">
+                <a href="#top">↑ На початок</a>
+                <a href="#cases">Кейси</a>
+                <a href="#process">Процес</a>
+              </div>
+            </div>
+
+            <div class="infoCard infoCard--soft">
+              <h3>Що підготувати</h3>
+              <ul class="list">
+                <li>Посилання на магазин або dev store</li>
+                <li>Опис бізнес-логіки + приклади</li>
+                <li>Сервіси для інтеграції (якщо є)</li>
+                <li>Бажані терміни та бюджетний діапазон</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <div class="brand brand--footer">
+            <span class="brand__mark" aria-hidden="true">QW</span>
+            <span class="brand__text">
+              <strong>QuantumWebs</strong>
+              <small>Офіційний партнер Shopify</small>
+            </span>
+          </div>
+          <p class="muted">© <span id="year"></span> Усі права захищені.</p>
+        </div>
+
+        <div class="footer__links">
+          <a href="#services">Послуги</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Контакти</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST / MODAL -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Повідомлення">
+      <div class="modal__backdrop" data-close="1"></div>
+      <div class="modal__panel" role="document">
+        <h3>Дякуємо!</h3>
+        <p>Заявку отримано. Ми зв’яжемося з вами найближчим часом.</p>
+        <button class="btn btn--ghost" data-close="1">Закрити</button>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="noscript">Для повної взаємодії потрібен JavaScript.</div>
+    </noscript>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
