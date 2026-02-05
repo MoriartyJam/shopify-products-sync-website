@@ -307,7 +307,7 @@ sideItems.forEach(a => {
 
   // Contact form validation (demo)
   const contactForm = $("#contactForm");
-  const LEADS_ENDPOINT = String(window.__QW_LEADS_ENDPOINT__ || "").trim();
+  const LEADS_ENDPOINT = "/api/lead";
 
   function setErr(name, msg) {
     const el = $(`[data-err-for="${name}"]`);
@@ -378,11 +378,6 @@ sideItems.forEach(a => {
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      if (!LEADS_ENDPOINT) {
-        showToast("Не налаштовано endpoint для заявок.");
-        return;
-      }
 
       if (!validateContact(contactForm)) {
         showToast("Перевір поля у формі 👀");
