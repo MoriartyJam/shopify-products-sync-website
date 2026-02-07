@@ -1,10 +1,18 @@
-from flask import Flask, send_from_directory, request, jsonify
+from datetime import datetime, timezone
+from flask import Flask, Response, send_from_directory, request, jsonify
 import os
 import json
 import urllib.request
 import urllib.error
 
 app = Flask(__name__, static_folder=".")
+
+
+def get_public_base_url() -> str:
+    configured = os.getenv("SITE_URL", "").strip()
+    if configured:
+        return configured.rstrip("/")
+    return request.url_root.rstrip("/")
 
 
 @app.route("/")
@@ -15,6 +23,39 @@ def index():
 @app.route("/<path:path>")
 def static_files(path):
     return send_from_directory(".", path)
+
+
+@app.route("/robots.txt")
+def robots():
+    base_url = get_public_base_url()
+    body = "\n".join(
+        [
+            "User-agent: *",
+            "Allow: /",
+            f"Sitemap: {base_url}/sitemap.xml",
+            "",
+        ]
+    )
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    base_url = get_public_base_url()
+    index_path = os.path.join(app.root_path, "index.html")
+    updated_at = datetime.fromtimestamp(os.path.getmtime(index_path), tz=timezone.utc).date().isoformat()
+    body = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{base_url}/</loc>
+    <lastmod>{updated_at}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+"""
+    return Response(body, mimetype="application/xml; charset=utf-8")
+
 
 @app.route("/api/lead", methods=["POST"])
 def lead():

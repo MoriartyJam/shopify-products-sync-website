@@ -5,15 +5,47 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Синхронізація Shopify та 1С/Торгсофт — QuantumWebs</title>
   <meta name="description" content="Інтеграція Shopify з 1С та Торгсофт: автоматична синхронізація товарів, цін, залишків і замовлень у реальному часі без ручної роботи." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="theme-color" content="#f4f8ff" />
+  <link rel="canonical" href="https://quantumwebs.tech/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Синхронізація Shopify та 1С/Торгсофт — QuantumWebs" />
   <meta property="og:description" content="Автоматизуйте Shopify: синхронізація з 1С/Торгсофт, актуальні ціни та залишки, двосторонній обмін замовленнями і мінімум помилок." />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="uk_UA" />
+  <meta property="og:url" content="https://quantumwebs.tech/" />
+  <meta property="og:site_name" content="QuantumWebs" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Синхронізація Shopify та 1С/Торгсофт — QuantumWebs" />
+  <meta name="twitter:description" content="Інтеграція Shopify з 1С та Торгсофт: автоматична синхронізація товарів, цін, залишків і замовлень." />
+  <meta name="twitter:url" content="https://quantumwebs.tech/" />
 
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <link rel="stylesheet" href="./styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "QuantumWebs",
+    "url": "https://quantumwebs.tech/",
+    "logo": "https://quantumwebs.tech/favicon.svg"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "QuantumWebs",
+    "url": "https://quantumwebs.tech/"
+  }
+  </script>
 </head>
 
 <body>
@@ -55,7 +87,9 @@
             помилки в цінах і статусах та затримки в обробці замовлень. Ми налаштовуємо повну синхронізацію:
             товари, описи, фото, ціни та залишки оновлюються автоматично при кожній зміні у вашій системі.
             Додаємо і двосторонній обмін: нові замовлення з Shopify передаються в облік, а статуси повертаються
-            назад у магазин. Результат — актуальні дані, менше ручної роботи і швидше обслуговування клієнтів.
+            назад у магазин. Працюємо не лише з 1С, Торгсофт, BAS, ULTRA: підключаємо також будь-які сервіси
+            за вашим запитом, якщо вони допомагають автоматизувати й оптимізувати бізнес-процеси магазину Shopify.
+            Результат — актуальні дані, менше ручної роботи і швидше обслуговування клієнтів.
           </p>
 
           <div class="hero__actions">
@@ -141,7 +175,8 @@
           <p>
             Працюємо з 1С, BAS, Торгсофт, ULTRA, KeyCRM, МойСклад, ERP/CRM/PIM, маркетплейс-агрегаторами
             та сайтами інших компаній. Найчастіші запити: вигрузка товарів у Shopify, синхронізація залишків,
-            оновлення цін, імпорт замовлень і синхронізація каталогу між Shopify та маркетплейсами.
+            оновлення цін, імпорт замовлень і синхронізація каталогу між Shopify та маркетплейсами. Якщо у вас
+            інший сервіс або кастомна система, інтегруємо її за запитом клієнта під конкретні бізнес-цілі.
           </p>
         </div>
 
@@ -207,8 +242,8 @@
 
         <div class="cta-line">
           <div>
-            <h3 class="cta-line__title">Потрібна синхронізація 1С, BAS, Торгсофт або ULTRA з Shopify?</h3>
-            <p class="cta-line__text">Покажемо робочу схему інтеграції на основі нашого досвіду попередніх проєктів.</p>
+            <h3 class="cta-line__title">Потрібна синхронізація 1С, BAS, Торгсофт, ULTRA або іншого сервісу з Shopify?</h3>
+            <p class="cta-line__text">Покажемо робочу схему інтеграції та підберемо сервіси, які реально оптимізують ваші процеси.</p>
           </div>
           <a class="btn btn--ghost" href="#contact">Написати нам</a>
         </div>
@@ -354,8 +389,10 @@
           <div class="blitz__result" aria-live="polite">
             <div class="result__box">
               <h3>Результат</h3>
-              <p class="result__line"><span>Оцінка термінів:</span> <strong id="resTime">—</strong></p>
-              <p class="result__line"><span>Оцінка бюджету:</span> <strong id="resBudget">—</strong></p>
+              <p class="result__line"><span>Мін. термін:</span> <strong id="resTimeMin">—</strong></p>
+              <p class="result__line"><span>Макс. термін:</span> <strong id="resTimeMax">—</strong></p>
+              <p class="result__line"><span>Мін. бюджет:</span> <strong id="resBudgetMin">—</strong></p>
+              <p class="result__line"><span>Макс. бюджет:</span> <strong id="resBudgetMax">—</strong></p>
               <p class="muted">
                 Це приблизний діапазон. Для точного кошторису потрібні правила обміну, структура полів і приклади даних.
               </p>

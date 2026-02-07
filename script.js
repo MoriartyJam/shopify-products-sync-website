@@ -143,8 +143,10 @@ sideItems.forEach(a => {
 
   // Blitz estimate
   const blitzForm = $("#blitzForm");
-  const resTime = $("#resTime");
-  const resBudget = $("#resBudget");
+  const resTimeMin = $("#resTimeMin");
+  const resTimeMax = $("#resTimeMax");
+  const resBudgetMin = $("#resBudgetMin");
+  const resBudgetMax = $("#resBudgetMax");
 
   function estimate({ type, scope, integrations, ui, deadline }) {
     // base in "points"
@@ -166,8 +168,10 @@ sideItems.forEach(a => {
     const maxUsd = Math.round(pts * 350);
 
     return {
-      time: `${minWeeks}–${maxWeeks} тиж.`,
-      budget: `$${minUsd.toLocaleString()} – $${maxUsd.toLocaleString()}`
+      minWeeks,
+      maxWeeks,
+      minUsd,
+      maxUsd
     };
   }
 
@@ -178,8 +182,10 @@ sideItems.forEach(a => {
       const data = Object.fromEntries(fd.entries());
       const r = estimate(data);
 
-      if (resTime) resTime.textContent = r.time;
-      if (resBudget) resBudget.textContent = r.budget;
+      if (resTimeMin) resTimeMin.textContent = `${r.minWeeks} тиж.`;
+      if (resTimeMax) resTimeMax.textContent = `${r.maxWeeks} тиж.`;
+      if (resBudgetMin) resBudgetMin.textContent = `$${r.minUsd.toLocaleString()}`;
+      if (resBudgetMax) resBudgetMax.textContent = `$${r.maxUsd.toLocaleString()}`;
 
       showToast("Готово: бліц-оцінку пораховано ✅");
     });
