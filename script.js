@@ -314,6 +314,7 @@ sideItems.forEach(a => {
   // Contact form validation (demo)
   const contactForm = $("#contactForm");
   const LEADS_ENDPOINT = "/api/lead";
+  const GOOGLE_ADS_LEAD_SEND_TO = "AW-11056829836/0-IQCP2j2vUbEIyrp5gp";
 
   function setErr(name, msg) {
     const el = $(`[data-err-for="${name}"]`);
@@ -381,6 +382,25 @@ sideItems.forEach(a => {
     }
   }
 
+  function gtagReportConversion(url) {
+    if (typeof window.gtag !== "function") return false;
+    const callback = function () {
+      if (typeof url !== "undefined") {
+        window.location = url;
+      }
+    };
+    window.gtag("event", "conversion", {
+      send_to: GOOGLE_ADS_LEAD_SEND_TO,
+      value: 1.0,
+      currency: "UAH",
+      event_callback: callback
+    });
+    return false;
+  }
+
+  // Expose helper globally for optional inline onclick usage from HTML.
+  window.gtag_report_conversion = gtagReportConversion;
+
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -401,6 +421,7 @@ sideItems.forEach(a => {
 
       try {
         await sendLeadToGoogleSheets(payload);
+        gtagReportConversion();
         contactForm.reset();
         showToast("Заявку надіслано ✅");
         openModal();
