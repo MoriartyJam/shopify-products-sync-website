@@ -178,6 +178,7 @@ sideItems.forEach(a => {
   if (blitzForm) {
     blitzForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      gtagReportBlitzConversion();
       const fd = new FormData(blitzForm);
       const data = Object.fromEntries(fd.entries());
       const r = estimate(data);
@@ -315,6 +316,8 @@ sideItems.forEach(a => {
   const contactForm = $("#contactForm");
   const LEADS_ENDPOINT = "/api/lead";
   const GOOGLE_ADS_LEAD_SEND_TO = "AW-11056829836/S8gUCI3R-fUbEIyrp5gp";
+  const GOOGLE_ADS_CONTACT_SEND_TO = "AW-11056829836/aGJnCNu0h_YbEIyrp5gp";
+  const GOOGLE_ADS_BLITZ_SEND_TO = "AW-11056829836/hRgZCMrEh_YbEIyrp5gp";
 
   function setErr(name, msg) {
     const el = $(`[data-err-for="${name}"]`);
@@ -383,7 +386,10 @@ sideItems.forEach(a => {
   }
 
   function gtagReportConversion(url) {
-    if (typeof window.gtag !== "function") return false;
+    if (typeof window.gtag !== "function") {
+      if (typeof url !== "undefined") window.location = url;
+      return false;
+    }
     const callback = function () {
       if (typeof url !== "undefined") {
         window.location = url;
@@ -398,8 +404,48 @@ sideItems.forEach(a => {
     return false;
   }
 
+  function gtagReportContactConversion(url) {
+    if (typeof window.gtag !== "function") {
+      if (typeof url !== "undefined") window.location = url;
+      return false;
+    }
+    const callback = function () {
+      if (typeof url !== "undefined") {
+        window.location = url;
+      }
+    };
+    window.gtag("event", "conversion", {
+      send_to: GOOGLE_ADS_CONTACT_SEND_TO,
+      value: 1.0,
+      currency: "UAH",
+      event_callback: callback
+    });
+    return false;
+  }
+
+  function gtagReportBlitzConversion(url) {
+    if (typeof window.gtag !== "function") {
+      if (typeof url !== "undefined") window.location = url;
+      return false;
+    }
+    const callback = function () {
+      if (typeof url !== "undefined") {
+        window.location = url;
+      }
+    };
+    window.gtag("event", "conversion", {
+      send_to: GOOGLE_ADS_BLITZ_SEND_TO,
+      value: 1.0,
+      currency: "UAH",
+      event_callback: callback
+    });
+    return false;
+  }
+
   // Expose helper globally for optional inline onclick usage from HTML.
   window.gtag_report_conversion = gtagReportConversion;
+  window.gtag_report_contact_conversion = gtagReportContactConversion;
+  window.gtag_report_blitz_conversion = gtagReportBlitzConversion;
 
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
@@ -436,6 +482,16 @@ sideItems.forEach(a => {
       }
     });
   }
+
+  const contactActionLinks = $$('#contact a[href^="tel:"], #contact a[href^="mailto:"]');
+  contactActionLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      e.preventDefault();
+      gtagReportContactConversion(href);
+    });
+  });
 
   // Close details when opening another (accordion behavior)
   const accordion = $("#accordion");
