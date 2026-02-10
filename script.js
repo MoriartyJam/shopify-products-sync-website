@@ -314,7 +314,7 @@ sideItems.forEach(a => {
   // Contact form validation (demo)
   const contactForm = $("#contactForm");
   const LEADS_ENDPOINT = "/api/lead";
-  const GOOGLE_ADS_LEAD_SEND_TO = "AW-11056829836/0-IQCP2j2vUbEIyrp5gp";
+  const GOOGLE_ADS_LEAD_SEND_TO = "AW-11056829836/S8gUCI3R-fUbEIyrp5gp";
 
   function setErr(name, msg) {
     const el = $(`[data-err-for="${name}"]`);
@@ -410,6 +410,8 @@ sideItems.forEach(a => {
         return;
       }
 
+      gtagReportConversion();
+
       const payload = Object.fromEntries(new FormData(contactForm).entries());
       const submitBtn = contactForm.querySelector("button[type=\"submit\"]");
       const oldBtnText = submitBtn?.textContent || "Надіслати";
@@ -421,7 +423,6 @@ sideItems.forEach(a => {
 
       try {
         await sendLeadToGoogleSheets(payload);
-        gtagReportConversion();
         contactForm.reset();
         showToast("Заявку надіслано ✅");
         openModal();
