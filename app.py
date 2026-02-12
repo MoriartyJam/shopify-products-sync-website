@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
-from flask import Flask, Response, send_from_directory, request, jsonify
+from flask import Flask, Response, send_from_directory, request, jsonify, redirect
 import os
 import json
 import urllib.request
 import urllib.error
+from urllib.parse import urlparse
 
 app = Flask(__name__, static_folder=".")
 
@@ -15,9 +16,57 @@ def get_public_base_url() -> str:
     return request.url_root.rstrip("/")
 
 
+def get_request_scheme() -> str:
+    # Respect reverse proxy headers when present.
+    forwarded = request.headers.get("X-Forwarded-Proto", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.scheme
+
+
+@app.before_request
+def enforce_canonical_url():
+    if request.method not in ("GET", "HEAD"):
+        return None
+
+    configured = os.getenv("SITE_URL", "").strip()
+    if not configured:
+        return None
+
+    target = urlparse(configured)
+    if not target.scheme or not target.netloc:
+        return None
+
+    req_scheme = get_request_scheme()
+    req_host = request.host.split(":")[0].lower()
+    target_host = target.netloc.split(":")[0].lower()
+
+    # Normalize /index.html to root and enforce canonical host/scheme.
+    normalized_path = "/" if request.path == "/index.html" else request.path
+    needs_redirect = (
+        req_scheme.lower() != target.scheme.lower()
+        or req_host != target_host
+        or normalized_path != request.path
+    )
+
+    if not needs_redirect:
+        return None
+
+    query = request.query_string.decode("utf-8")
+    destination = f"{target.scheme}://{target.netloc}{normalized_path}"
+    if query:
+        destination = f"{destination}?{query}"
+    return redirect(destination, code=301)
+
+
 @app.route("/")
 def index():
     return send_from_directory(".", "index.html")
+
+
+@app.route("/index.html")
+def index_html():
+    return redirect("/", code=301)
 
 
 @app.route("/<path:path>")
