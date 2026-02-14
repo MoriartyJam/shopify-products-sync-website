@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Блог про інтеграції Shopify | QuantumWebs</title>
+  <meta name="description" content="Практичні статті про інтеграції Shopify з 1С, BAS, Торгсофт та іншими системами для SEO і продажів." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="{{ canonical_url }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Блог про інтеграції Shopify | QuantumWebs" />
+  <meta property="og:description" content="Статті про синхронізацію товарів, цін, залишків та замовлень у Shopify." />
+  <meta property="og:url" content="{{ page_url }}" />
+  <meta property="og:site_name" content="QuantumWebs" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="section">
+    <div class="container">
+      <div class="section__head">
+        <h1>Блог QuantumWebs</h1>
+        <p>Публікуємо практичні інструкції для SEO та стабільної синхронізації Shopify.</p>
+        <p><a class="btn btn--ghost" href="/">← На головну</a></p>
+      </div>
+
+      {% if posts %}
+      <div class="grid cards">
+        {% for post in posts %}
+        <article class="card">
+          <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
+          <p>{{ post.description }}</p>
+          <p class="muted">Опубліковано: {{ post.published_human }}</p>
+          <p><a class="btn btn--sm" href="/blog/{{ post.slug }}">Читати статтю</a></p>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>Поки що статей немає. Додайте перший пост у <code>content/blog</code>.</p>
+      {% endif %}
+    </div>
+  </main>
+</body>
+</html>

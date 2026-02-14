@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ post.title }} | QuantumWebs</title>
+  <meta name="description" content="{{ post.description }}" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="{{ canonical_url }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ post.title }}" />
+  <meta property="og:description" content="{{ post.description }}" />
+  <meta property="og:url" content="{{ page_url }}" />
+  <meta property="article:published_time" content="{{ post.published_at.isoformat() }}" />
+  <meta property="article:modified_time" content="{{ post.updated_at.isoformat() }}" />
+  {% for keyword in post.keywords %}
+  <meta property="article:tag" content="{{ keyword }}" />
+  {% endfor %}
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ post.title | tojson }},
+    "description": {{ post.description | tojson }},
+    "datePublished": "{{ post.published_at.isoformat() }}",
+    "dateModified": "{{ post.updated_at.isoformat() }}",
+    "mainEntityOfPage": {{ canonical_url | tojson }},
+    "author": {
+      "@type": "Organization",
+      "name": "QuantumWebs"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuantumWebs",
+      "url": {{ site_url | tojson }}
+    }
+  }
+  </script>
+</head>
+<body>
+  <main class="section">
+    <div class="container">
+      <p><a class="btn btn--ghost" href="/blog">← Усі статті</a></p>
+      <article class="panel panel--glass">
+        <h1>{{ post.title }}</h1>
+        <p class="muted">Опубліковано: {{ post.published_human }} | Оновлено: {{ post.updated_human }}</p>
+        <div>{{ post.content_html | safe }}</div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>
