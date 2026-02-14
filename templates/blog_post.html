@@ -6,13 +6,19 @@
   <title>{{ post.title }} | QuantumWebs</title>
   <meta name="description" content="{{ post.description }}" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <link rel="canonical" href="{{ canonical_url }}" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{{ post.title }}" />
   <meta property="og:description" content="{{ post.description }}" />
+  <meta property="og:locale" content="uk_UA" />
   <meta property="og:url" content="{{ page_url }}" />
   <meta property="article:published_time" content="{{ post.published_at.isoformat() }}" />
   <meta property="article:modified_time" content="{{ post.updated_at.isoformat() }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ post.title }}" />
+  <meta name="twitter:description" content="{{ post.description }}" />
+  <meta name="twitter:url" content="{{ page_url }}" />
   {% for keyword in post.keywords %}
   <meta property="article:tag" content="{{ keyword }}" />
   {% endfor %}
@@ -26,6 +32,7 @@
     "datePublished": "{{ post.published_at.isoformat() }}",
     "dateModified": "{{ post.updated_at.isoformat() }}",
     "mainEntityOfPage": {{ canonical_url | tojson }},
+    "keywords": {{ post.keywords | join(", ") | tojson }},
     "author": {
       "@type": "Organization",
       "name": "QuantumWebs"
@@ -39,13 +46,13 @@
   </script>
 </head>
 <body>
-  <main class="section">
-    <div class="container">
-      <p><a class="btn btn--ghost" href="/blog">← Усі статті</a></p>
-      <article class="panel panel--glass">
+  <main class="section blog-page">
+    <div class="container blog-container">
+      <p class="blog-back"><a class="btn btn--ghost" href="/blog">← Усі статті</a></p>
+      <article class="panel panel--glass blog-article">
         <h1>{{ post.title }}</h1>
-        <p class="muted">Опубліковано: {{ post.published_human }} | Оновлено: {{ post.updated_human }}</p>
-        <div>{{ post.content_html | safe }}</div>
+        <p class="muted blog-meta">Опубліковано: {{ post.published_human }} | Оновлено: {{ post.updated_human }}</p>
+        <div class="blog-content">{{ post.content_html | safe }}</div>
       </article>
     </div>
   </main>

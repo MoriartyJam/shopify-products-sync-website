@@ -6,31 +6,53 @@
   <title>Блог про інтеграції Shopify | QuantumWebs</title>
   <meta name="description" content="Практичні статті про інтеграції Shopify з 1С, BAS, Торгсофт та іншими системами для SEO і продажів." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <link rel="canonical" href="{{ canonical_url }}" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Блог про інтеграції Shopify | QuantumWebs" />
   <meta property="og:description" content="Статті про синхронізацію товарів, цін, залишків та замовлень у Shopify." />
+  <meta property="og:locale" content="uk_UA" />
   <meta property="og:url" content="{{ page_url }}" />
   <meta property="og:site_name" content="QuantumWebs" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Блог про інтеграції Shopify | QuantumWebs" />
+  <meta name="twitter:description" content="Статті про синхронізацію товарів, цін, залишків та замовлень у Shopify." />
+  <meta name="twitter:url" content="{{ page_url }}" />
   <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Блог QuantumWebs",
+    "url": {{ canonical_url | tojson }},
+    "description": "Практичні статті про інтеграції Shopify з 1С, BAS, Торгсофт та іншими системами для SEO і продажів.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuantumWebs",
+      "url": {{ site_url | tojson }}
+    }
+  }
+  </script>
 </head>
 <body>
-  <main class="section">
-    <div class="container">
-      <div class="section__head">
+  <main class="section blog-page">
+    <div class="container blog-container">
+      <div class="section__head blog-head">
         <h1>Блог QuantumWebs</h1>
-        <p>Публікуємо практичні інструкції для SEO та стабільної синхронізації Shopify.</p>
-        <p><a class="btn btn--ghost" href="/">← На головну</a></p>
+        <p>Практичні поради взаємодії с продуктамі і інтеграціями з іншімі сервісами.</p>
+        <div class="blog-head__actions"><a class="btn btn--ghost" href="/">← На головну</a></div>
       </div>
 
       {% if posts %}
-      <div class="grid cards">
+      <div class="blog-grid{% if posts|length == 1 %} blog-grid--single{% endif %}">
         {% for post in posts %}
-        <article class="card">
+        <article class="card blog-card">
           <h2><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h2>
           <p>{{ post.description }}</p>
           <p class="muted">Опубліковано: {{ post.published_human }}</p>
-          <p><a class="btn btn--sm" href="/blog/{{ post.slug }}">Читати статтю</a></p>
+          <div class="blog-card__actions">
+            <a class="btn btn--sm" href="/blog/{{ post.slug }}">Читати статтю</a>
+          </div>
         </article>
         {% endfor %}
       </div>

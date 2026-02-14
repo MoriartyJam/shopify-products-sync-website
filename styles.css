@@ -1079,3 +1079,150 @@ a:hover{ opacity:.92; }
   .timecard,
   .timecard__n{ animation:none; }
 }
+
+/* Blog */
+.blog-page{
+  padding: 36px 0 56px;
+}
+
+.blog-container{
+  max-width: 980px;
+}
+
+.blog-head{
+  margin-bottom: 18px;
+}
+
+.blog-head h1{
+  margin: 0 0 10px;
+}
+
+.blog-head p{
+  margin: 0;
+  line-height: 1.4;
+}
+
+.blog-head__actions{
+  margin-top: 14px;
+}
+
+.blog-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:16px;
+}
+
+.blog-grid--single{
+  grid-template-columns: minmax(0, 540px);
+  max-width: 540px;
+}
+
+.blog-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  height:100%;
+}
+
+.blog-card h2{
+  margin:0;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height:1.25;
+}
+
+.blog-card p{
+  margin:0;
+}
+
+.blog-card__actions{
+  margin-top: 14px;
+}
+
+.blog-card__actions .btn{
+  margin-top: 0;
+}
+
+.blog-grid--single .blog-card{
+  min-height: 0;
+  padding: 22px;
+}
+
+.blog-back{
+  margin: 0 0 14px;
+}
+
+.blog-article{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(16px, 2.2vw, 28px);
+}
+
+.blog-article h1{
+  margin:0 0 8px;
+  line-height:1.2;
+  font-size: clamp(28px, 3.4vw, 44px);
+}
+
+.blog-meta{
+  margin:0 0 16px;
+}
+
+.blog-content{
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height:1.72;
+}
+
+.blog-content h2,
+.blog-content h3{
+  margin: 24px 0 10px;
+  line-height:1.28;
+}
+
+.blog-content p{
+  margin: 0 0 14px;
+}
+
+.blog-content ul,
+.blog-content ol{
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+@media (max-width: 900px){
+  .blog-page{
+    padding: 22px 0 42px;
+  }
+
+  .blog-head h1{
+    font-size: clamp(36px, 8.4vw, 44px);
+    line-height: 1.12;
+  }
+
+  .blog-head p{
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .blog-head__actions{
+    margin-top: 12px;
+  }
+
+  .blog-grid{
+    grid-template-columns: 1fr;
+    gap:12px;
+  }
+
+  .blog-grid--single{
+    max-width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .blog-grid--single .blog-card{
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .blog-article{
+    margin: 0;
+  }
+}

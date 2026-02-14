@@ -154,6 +154,11 @@ def blog_index():
     )
 
 
+@app.route("/blog/")
+def blog_index_slash():
+    return redirect("/blog", code=301)
+
+
 @app.route("/blog/<slug>")
 def blog_post(slug):
     base_url = get_public_base_url()
@@ -170,6 +175,14 @@ def blog_post(slug):
         page_url=f"{base_url}/blog/{post['slug']}",
         site_url=base_url,
     )
+
+
+@app.route("/blog/<slug>/")
+def blog_post_slash(slug):
+    normalized_slug = (slug or "").strip().strip("/")
+    if not normalized_slug:
+        return redirect("/blog", code=301)
+    return redirect(f"/blog/{normalized_slug}", code=301)
 
 
 @app.route("/robots.txt")
@@ -272,4 +285,4 @@ def static_files(path):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80, debug=False)
+    app.run(host="0.0.0.0", port=8000, debug=False)
