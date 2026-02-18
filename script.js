@@ -326,19 +326,16 @@ sideItems.forEach(a => {
 
   function validateContact(form) {
     const name = $("#name")?.value.trim() || "";
-    const phone = $("#phone")?.value.trim() || "";
     const email = $("#email")?.value.trim() || "";
     const message = $("#message")?.value.trim() || "";
 
     let ok = true;
 
     setErr("name", "");
-    setErr("phone", "");
     setErr("email", "");
     setErr("message", "");
 
     if (name.length < 2) { setErr("name", "Вкажи ім’я (мін. 2 символи)."); ok = false; }
-    if (phone && phone.length < 7) { setErr("phone", "Телефон має бути від 7 символів або залиш поле порожнім."); ok = false; }
     if (!/^\S+@\S+\.\S+$/.test(email)) { setErr("email", "Вкажи коректний e-mail."); ok = false; }
     if (message && message.length < 10) { setErr("message", "Опиши задачу детальніше (мін. 10 символів) або залиш поле порожнім."); ok = false; }
 
@@ -483,7 +480,7 @@ sideItems.forEach(a => {
     });
   }
 
-  const contactActionLinks = $$('#contact a[href^="tel:"], #contact a[href^="mailto:"]');
+  const contactActionLinks = $$('#contact a[href^="mailto:"]');
   contactActionLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
