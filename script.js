@@ -163,9 +163,9 @@ sideItems.forEach(a => {
     const minWeeks = Math.max(1, Math.round((pts * 2) / 5));
     const maxWeeks = Math.max(minWeeks + 1, Math.round((pts * 4) / 5));
 
-    // budget: 1 pt ~ $200-350 (reduced by ~50%)
-    const minUsd = Math.round(pts * 200);
-    const maxUsd = Math.round(pts * 350);
+    // budget: 1 pt ~ $100-175 (reduced by another 50%)
+    const minUsd = Math.round(pts * 100);
+    const maxUsd = Math.round(pts * 175);
 
     return {
       minWeeks,
