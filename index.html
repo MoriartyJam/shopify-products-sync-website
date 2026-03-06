@@ -210,6 +210,9 @@
             <ul class="list">
               <li>Автоматичне оновлення товарів, цін, фото та залишків між Shopify і системою обліку.</li>
               <li>Двосторонній обмін замовленнями: створення в 1С/Торгсофт і повернення статусів у Shopify.</li>
+              <li>Інтеграція оплати й доставки: передача трекінгу, статусів і логіки обробки замовлень.</li>
+              <li>Кастомізація Checkout під ваш процес для зручного та конверсійного оформлення покупки.</li>
+              <li>Налаштування атрибуції та аналітики для контролю джерел трафіку, заявок і продажів.</li>
               <li>Контроль залишків у реальному часі та захист від надпродажів.</li>
               <li>Економія часу менеджерів і мінімум помилок через відмову від ручного копіювання.</li>
               <li>Єдина база клієнтів і замовлень для швидкої аналітики та рішень.</li>
@@ -227,11 +230,11 @@
           <div class="panel panel--glass">
             <h3>Як будуємо інтеграцію</h3>
             <ol class="steps">
-              <li><strong>Аудит даних:</strong> формати, обов’язкові поля, ідентифікатори, зв’язки.</li>
-              <li><strong>Мапінг полів:</strong> як поля 1С/BAS/Торгсофт/ULTRA лягають у Products, Variants, Collections.</li>
-              <li><strong>Розробка обміну:</strong> API, черги, webhooks, контроль лімітів Shopify.</li>
-              <li><strong>Тестові прогони:</strong> перевірка edge-case сценаріїв і журналу помилок.</li>
-              <li><strong>Запуск і підтримка:</strong> моніторинг, доопрацювання правил, масштабування.</li>
+              <li><strong>Аудит процесів і даних:</strong> аналізуємо ваші системи, формати, обов’язкові поля, ідентифікатори та бізнес-правила обміну.</li>
+              <li><strong>Проєктування логіки обміну:</strong> визначаємо мапінг полів для товарів, варіантів, колекцій, замовлень, Checkout, оплати та доставки.</li>
+              <li><strong>Розробка інтеграції:</strong> реалізуємо обмін через API, webhooks і черги, додаємо валідації та контроль стабільності.</li>
+              <li><strong>Тестування сценаріїв:</strong> перевіряємо edge-case кейси, коректність атрибуції, статусів і журналів помилок.</li>
+              <li><strong>Запуск і розвиток:</strong> виводимо в продакшн, налаштовуємо моніторинг, підтримку та масштабування під ріст бізнесу.</li>
             </ol>
           </div>
         </div>
@@ -305,11 +308,29 @@
               </article>
 
               <article class="case case--slide">
-                <div class="case__badge">BAS → Shopify</div>
-                <h3>Автооновлення номенклатури</h3>
-                <p>Налаштували інкрементальну передачу товарів, цін і залишків із BAS у Shopify за розкладом і по webhooks.</p>
+                <div class="case__badge">Checkout → Shopify</div>
+                <h3>Розділення оплат для різних ФОП</h3>
+                <p>Налаштували логіку Checkout у Shopify, де платіжні системи автоматично розділяються за правилами для різних ФОП.</p>
                 <ul class="mini">
-                  <li>⌁ Delta sync</li><li>⌁ Scheduler</li><li>⌁ Webhooks</li>
+                  <li>⌁ Checkout rules</li><li>⌁ Payment routing</li><li>⌁ Multi-FOP logic</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">Checkout + Attribution → Shopify</div>
+                <h3>Кастомна логіка атрибуції в Checkout</h3>
+                <p>Реалізували кастомну атрибуцію в зв’язці з Shopify Checkout: фіксація джерела, кампанії та ключового слова в замовленні для точної аналітики й оптимізації реклами.</p>
+                <ul class="mini">
+                  <li>⌁ Attribution logic</li><li>⌁ UTM mapping</li><li>⌁ Checkout events</li>
+                </ul>
+              </article>
+
+              <article class="case case--slide">
+                <div class="case__badge">BAS → Shopify</div>
+                <h3>Вивантаження статусів оплат і замовлень</h3>
+                <p>Налаштували передачу в Shopify статусів замовлень із BAS, включно з накладеним платежем і оплатою за реквізитами, щоб менеджери та клієнти бачили актуальний стан оплати в магазині.</p>
+                <ul class="mini">
+                  <li>⌁ Payment status sync</li><li>⌁ COD + Bank transfer</li><li>⌁ BAS → Shopify orders</li>
                 </ul>
               </article>
 
@@ -489,44 +510,44 @@
             <div class="reviews__track" id="reviewTrack">
               <article class="review review--slide">
                 <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Після запуску синхронізації з 1С/BAS каталог у Shopify став актуальним, а ручна робота майже зникла.”</p>
+                <p>“Після інтеграції Shopify з 1С ми прибрали ручне копіювання товарів і замовлень. Ціни та залишки оновлюються автоматично, а помилок стало в рази менше.”</p>
                 <div class="review__who">
                   <strong>Олена</strong> <span>• eCommerce, Україна</span>
                 </div>
               </article>
               <article class="review review--slide">
                 <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Зробили коректну передачу варіацій і колекцій. Навіть складні товари тепер оновлюються без помилок.”</p>
+                <p>“Команда налаштувала обмін між BAS і Shopify під наші правила. Менеджери бачать актуальні статуси, а обробка замовлень стала помітно швидшою.”</p>
                 <div class="review__who">
                   <strong>Андрій</strong> <span>• Retail, Київ</span>
                 </div>
               </article>
               <article class="review review--slide">
                 <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Команда швидко розібралася в нашому ERP, налаштувала логи і retries — синхронізація працює стабільно.”</p>
-                <div class="review__who">
-                  <strong>John</strong> <span>• SaaS, ЄС</span>
-                </div>
-              </article>
-              <article class="review review--slide">
-                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Інтеграція з Powerbody дала швидкий запуск: товари і залишки підтягнулися без ручного імпорту.”</p>
-                <div class="review__who">
-                  <strong>Michael</strong> <span>• Supplements, Польща</span>
-                </div>
-              </article>
-              <article class="review review--slide">
-                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Зібрали дані товарів з сайтів постачальників, вирівняли структуру і автоматично публікуємо в Shopify.”</p>
+                <p>“Для нас зробили розділення платіжних систем у Checkout для різних ФОП. Логіка працює стабільно, а оформлення замовлень стало прозорим для клієнтів.”</p>
                 <div class="review__who">
                   <strong>Наталія</strong> <span>• D2C, Україна</span>
                 </div>
               </article>
               <article class="review review--slide">
                 <div class="review__stars" aria-label="5 з 5">★★★★★</div>
-                <p>“Після налаштування логів та повторних відправок зникли провали в замовленнях і оновленнях цін.”</p>
+                <p>“Реалізували передачу статусів оплат із BAS у Shopify: накладений платіж і оплата за реквізитами відображаються коректно. Це сильно зняло навантаження з команди.”</p>
                 <div class="review__who">
-                  <strong>David</strong> <span>• Marketplace, ЄС</span>
+                  <strong>Михайло</strong> <span>• Multi-brand, Україна</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Налаштували кастомну атрибуцію в зв’язці з Shopify Checkout. Тепер бачимо реальні джерела заявок і можемо точніше оптимізувати рекламу.”</p>
+                <div class="review__who">
+                  <strong>David</strong> <span>• Performance Marketing, ЄС</span>
+                </div>
+              </article>
+              <article class="review review--slide">
+                <div class="review__stars" aria-label="5 з 5">★★★★★</div>
+                <p>“Після запуску синхронізації з Торгсофт каталог став стабільним: товари, фото, ціни та залишки оновлюються без ручних правок.”</p>
+                <div class="review__who">
+                  <strong>Ірина</strong> <span>• Retail, Україна</span>
                 </div>
               </article>
             </div>
