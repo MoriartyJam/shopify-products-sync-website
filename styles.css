@@ -907,18 +907,32 @@ a:hover{ opacity:.92; }
   .contact{ grid-template-columns: 1fr; }
 }
 @media (max-width: 760px){
-#s04{
-  text-align:center;
-  margin-left:auto;
-  margin-right:auto;
-}
-#s04 h2{
-  text-align:center;
-}
+  .section{
+    padding: 40px 0;
+  }
+  .section__head{
+    margin-bottom: 14px;
+  }
+  .section__head h2{
+    font-size: clamp(22px, 6.3vw, 28px);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .section__head p{
+    line-height: 1.55;
+  }
+  #s04{
+    text-align:left;
+    margin-left:0;
+    margin-right:0;
+  }
+  #s04 h2{
+    text-align:left;
+  }
   .cases-slider{
     display:flex;
     flex-wrap:wrap;
-    justify-content:center;
+    justify-content:flex-start;
     gap:10px;
   }
   .cases-slider .slider__viewport{
@@ -931,7 +945,7 @@ a:hover{ opacity:.92; }
   #reviews .slider{
     display:flex;
     flex-wrap:wrap;
-    justify-content:center;
+    justify-content:flex-start;
     gap:10px;
   }
   #reviews .slider .slider__viewport{
@@ -968,10 +982,10 @@ a:hover{ opacity:.92; }
     justify-self:start;
   }
   .case{
-    padding:14px;
+    padding:16px;
   }
   .review{
-    padding:14px;
+    padding:16px;
   }
   .cta-line{
     display:grid;
@@ -1022,7 +1036,7 @@ a:hover{ opacity:.92; }
     scroll-snap-type: x mandatory;
   }
   .stat{
-    min-width: 220px;
+    min-width: 240px;
     scroll-snap-align: start;
   }
   .note{ display:none; }
@@ -1195,7 +1209,7 @@ a:hover{ opacity:.92; }
   }
 
   .blog-head h1{
-    font-size: clamp(36px, 8.4vw, 44px);
+    font-size: clamp(30px, 8vw, 38px);
     line-height: 1.12;
   }
 
